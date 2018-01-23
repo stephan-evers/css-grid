@@ -3,6 +3,7 @@
 
   # Table of contents
 
+  - Settings
   - Base Styles
   - Alignment
   - Spacing between cells
@@ -10,6 +11,7 @@
   - Cells
   - Transitions
   - Gluebar
+  - Breakpoints
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
@@ -17,11 +19,18 @@
 
 /* Base Styles
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+$breakpoint-phone: "only screen and (max-width: 699px)" !default;
+
+/* Base Styles
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 .grid {
+  margin: 0;
+  padding: 0;
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
   box-sizing: border-box;
+  list-style: none;
 }
 
 /* Alignment
@@ -36,17 +45,17 @@
 /* Spacing between cells
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 .grid {
-  &.gap { margin: -1rem 0 1em -1rem; }
+  &.gap { margin: -1rem 0 0 -1rem; }
   &.gap .cell { padding: 1rem 0 0 1rem; }
 
-  &.double-gap { margin: -1.5rem 0 1.5em -1.5rem; }
-  &.double-gap .cell { padding: 1.5rem 0 0 1.5rem; }
+  &.gap2 { margin: -1.5rem 0 0 -1.5rem; }
+  &.gap2 .cell { padding: 1.5rem 0 0 1.5rem; }
 
-  &.triple-gap { margin: -2.25rem 0 2.25em -2.25rem; }
-  &.triple-gap .cell { padding: 2.25rem 0 0 2.25rem; }
+  &.gap3 { margin: -2.25rem 0 0 -2.25rem; }
+  &.gap3 .cell { padding: 2.25rem 0 0 2.25rem; }
 
-  &.perfect-gap { margin: -4rem 0 4em -4rem; }
-  &.perfect-gap .cell { padding: 4rem 0 0 4rem; }
+  &.gap4 { margin: -4rem 0 0 -4rem; }
+  &.gap4 .cell { padding: 4rem 0 0 4rem; }
 }
 
 /* Rows
@@ -107,7 +116,7 @@
 
 /* Transitions
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
-.grid {
+.grid:not(.transition-off) {
   .cell { transition: flex-basis 0.5s ease-in; }
 
   &.gap {
@@ -139,4 +148,27 @@
       padding-left: 1.5em;
     }
   }
+}
+
+.pre {
+  color: white;
+  background: tomato;
+  border-radius: 2px;
+  box-sizing: border-box;
+  padding: 0.25em;
+  display: block;
+
+  &:before {
+    content: 'cell';
+  }
+}
+
+/* Breakpoints
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
+@mixin grid-for-mobile {
+  .grid:not(.fixed) .cell { flex-basis: 100% !important; }
+}
+
+@media #{$breakpoint-phone} {
+  @include grid-for-mobile;
 }
